@@ -1,6 +1,6 @@
 import pygame
 import sys
-
+import random
 
 def ball_animation():
     global ball_speed_x,ball_speed_y
@@ -10,10 +10,33 @@ def ball_animation():
     if ball.top <=0 or ball.bottom >= screen_height:
         ball_speed_y *= -1
     if ball.left <=0 or ball.right >= screen_width:
-        ball_speed_x *= -1
+        ball_restart()
 
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
+
+def ball_restart():
+    global ball_speed_x,ball_speed_y
+    ball.center = (screen_width/2,screen_height/2)
+    ball_speed_y *= random.choice((1,-1))
+    ball_speed_x *= random.choice((1,-1))
+def player_animation():
+    player.y += player_speed
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= screen_height :
+        player.bottom = screen_height
+
+def opponent_animation():
+    if opponent.top < ball.y:
+        opponent.top += opponent_speed
+    if opponent.bottom > ball.y:
+        opponent.bottom -= opponent_speed
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= screen_height :
+        player.bottom = screen_height
+
 # general
 pygame.init()
 clock = pygame.time.Clock()
@@ -34,9 +57,11 @@ opponent = pygame.Rect(10,screen_height/2 - 35,10,70)
 bg_color = pygame.Color('darkslateblue')
 light_grey = (200,200,200)
 
-ball_speed_x = 7
-ball_speed_y = 7
+ball_speed_x = 7 * random.choice((1,-1))
+ball_speed_y = 7 * random.choice((1,-1))
 player_speed = 0
+opponent_speed = 7
+
 while True: 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -53,7 +78,8 @@ while True:
             if event.key == pygame.K_UP:
                 player_speed += 7
     ball_animation()
-
+    player_animation()
+    opponent_animation()
     # Visuals
     screen.fill(bg_color)
     pygame.draw.rect(screen,light_grey,player)
