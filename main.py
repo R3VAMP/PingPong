@@ -21,7 +21,7 @@ opponent = pygame.Rect(10,screen_height/2 - 35,10,70)
 bg_color = pygame.Color('darkslateblue')
 light_grey = (200,200,200)
 
-while True:
+while True: 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
