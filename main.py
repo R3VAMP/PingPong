@@ -51,8 +51,8 @@ pygame.display.set_icon(icon)
 
 # Game Shapes
 ball = pygame.Rect(screen_width/2 - 10,screen_height/2 - 10,20,20)
-player = pygame.Rect(screen_width -20,screen_height/2 - 35,10,70)
-opponent = pygame.Rect(10,screen_height/2 - 35,10,70)
+player = pygame.Rect(screen_width -20,screen_height/2 - 45,10,90)
+opponent = pygame.Rect(10,screen_height/2 - 45,10,90)
 
 bg_color = pygame.Color('darkslateblue')
 light_grey = (200,200,200)
